@@ -136,8 +136,8 @@ Prerequisites: **Node.js 20+**, **PostgreSQL 14+**.
 
 ```bash
 # 1. Clone & install
-git clone <repo-url> opsflow-erp
-cd opsflow-erp
+git clone https://github.com/ashu8349/mini-ERP-CRM-operations-portal.git
+cd mini-ERP-CRM-operations-portal
 
 # 2. Server
 cd backend
@@ -146,8 +146,8 @@ cp .env.example .env          # then edit DATABASE_URL, JWT_SECRET
 npx prisma migrate dev        # create & migrate the database
 npx prisma db seed            # demo users + sample data
 
-# 3. Client
-cd ../client
+# 3. Frontend
+cd ../frontend
 npm install
 cp .env.example .env.local    # VITE_API_URL=http://localhost:5000/api
 ```
@@ -361,7 +361,8 @@ Create a free PostgreSQL instance and copy its connection string into `DATABASE_
 | Warehouse | `warehouse@example.com` | `Warehouse@123` |
 | Accounts | `accounts@example.com` | `Accounts@123` |
 
-> ⚠️ Demo passwords are for local evaluation only — change them in production.
+> ⚠️ These are demo credentials created by the seed script for local evaluation only.
+> Never use these credentials in a production environment.
 
 ## 18. Screenshots
 
