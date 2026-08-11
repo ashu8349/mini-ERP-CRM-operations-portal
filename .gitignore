@@ -5,6 +5,8 @@ node_modules/
 dist/
 build/
 
+.vite/
+
 # Environment files - NEVER commit real secrets
 .env
 .env.local
