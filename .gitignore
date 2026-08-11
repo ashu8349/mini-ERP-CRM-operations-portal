@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Builds
+dist/
+build/
+
+# Environment files - NEVER commit real secrets
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+server.log
+server-err.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.vercel
+.netlify
+
+# Test coverage
+coverage/
