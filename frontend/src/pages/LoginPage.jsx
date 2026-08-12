@@ -16,10 +16,10 @@ const loginSchema = z.object({
 });
 
 const DEMO_ACCOUNTS = [
-  { role: "Admin", email: "admin@example.com", password: "Admin@123" },
-  { role: "Sales", email: "sales@example.com", password: "Sales@123" },
-  { role: "Warehouse", email: "warehouse@example.com", password: "Warehouse@123" },
-  { role: "Accounts", email: "accounts@example.com", password: "Accounts@123" },
+  { role: "Admin", email: "admin@example.com" },
+  { role: "Sales", email: "sales@example.com" },
+  { role: "Warehouse", email: "warehouse@example.com" },
+  { role: "Accounts", email: "accounts@example.com" },
 ];
 
 const FEATURES = [
@@ -197,7 +197,6 @@ export function LoginPage() {
                   type="button"
                   onClick={() => {
                     setValue("email", acc.email);
-                    setValue("password", acc.password);
                   }}
                   className="group rounded-xl border border-slate-200 bg-white px-3 py-2 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md"
                 >
@@ -208,6 +207,7 @@ export function LoginPage() {
                     </span>
                   </span>
                   <span className="block truncate text-[11px] text-slate-400">{acc.email}</span>
+                  <span className="block text-[10px] text-slate-300">ask admin for password</span>
                 </button>
               ))}
             </div>

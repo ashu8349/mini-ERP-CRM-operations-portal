@@ -368,15 +368,17 @@ Create a free PostgreSQL instance and copy its connection string into `DATABASE_
 
 ## 17. Demo credentials
 
-| Role | Email | Password |
-| --- | --- | --- |
-| Admin | `admin@example.com` | `Admin@123` |
-| Sales | `sales@example.com` | `Sales@123` |
-| Warehouse | `warehouse@example.com` | `Warehouse@123` |
-| Accounts | `accounts@example.com` | `Accounts@123` |
+| Role | Email |
+| --- | --- |
+| Admin | `admin@example.com` |
+| Sales | `sales@example.com` |
+| Warehouse | `warehouse@example.com` |
+| Accounts | `accounts@example.com` |
 
-> ⚠️ These are demo credentials created by the seed script for local evaluation only.
-> Never use these credentials in a production environment.
+> ⚠️ **Passwords are not published here.** The seed script (`backend/prisma/seed.ts`)
+> creates these accounts with demo passwords for **local development only**, and the
+> passwords are rotated to private values in any deployed/staging environment.
+> Please ask the system administrator for the current credentials.
 
 ## 18. Screenshots
 
