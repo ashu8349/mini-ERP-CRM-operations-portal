@@ -27,6 +27,7 @@
 17. [Demo credentials](#17-demo-credentials)
 18. [Screenshots](#18-screenshots)
 19. [Future improvements](#19-future-improvements)
+20. [Changelog](#20-changelog)
 
 ---
 
@@ -336,15 +337,28 @@ Create a free PostgreSQL instance and copy its connection string into `DATABASE_
 
 ### Backend — Render / Railway
 1. Create a new web service from this repo, root directory `backend/`.
-2. Build command: `npm install && npx prisma migrate deploy && npm run build`
+2. Build command: `npm install && npm run prisma:generate && npm run build` (on first deploy, append `&& npm run db:deploy && npm run db:seed` once, so the production database gets its tables and seed data — the commands are idempotent, so keeping them is also safe).
 3. Start command: `npm start`
 4. Environment variables: `DATABASE_URL`, `JWT_SECRET` (long random string), `JWT_EXPIRES_IN`, `PORT`, `CLIENT_URL` (your frontend URL), `NODE_ENV=production`.
+5. Do **not** set `NODE_ENV=production` as an install-time env var: it makes `npm install` skip devDependencies (`typescript`, `@types/node`, `prisma`), which breaks the build.
+
+> **TypeScript version is pinned to `5.9.3` (exact).** Do not loosen this to `^5.9.3`:
+> newer TypeScript majors (6.x/7.x) removed the old `node`/`node10` module resolution
+> values and fail with `TS5108: Option 'moduleResolution=node10' has been removed`.
 
 ### Frontend — Vercel / Netlify
 1. Root directory: `frontend/`.
 2. Build command: `npm run build`, output directory: `dist/`.
-3. Environment variable: `VITE_API_URL=https://<your-backend>.onrender.com/api`.
+3. Environment variable: `VITE_API_URL=https://<your-backend>.onrender.com` (the `/api` prefix is appended automatically by `frontend/src/utils/constants.js` — do **not** add it yourself).
 4. Deploy — the built app calls the deployed API with CORS already configured for your `CLIENT_URL`.
+
+### Current live deployment
+
+| Part | URL | Notes |
+| --- | --- | --- |
+| Backend (Render) | `https://opsflow-erp-backend.onrender.com` | PostgreSQL on Render; migrations + seed applied |
+| Frontend (Vercel) | Vercel project connected to `main` branch | `VITE_API_URL = https://opsflow-erp-backend.onrender.com` |
+| Login endpoint | `POST https://opsflow-erp-backend.onrender.com/api/auth/login` | JSON body `{ email, password }` |
 
 ### Optional — AWS deployment (documented, no paid resources required)
 - **AWS EC2**: run the backend with Node.js behind Nginx (reverse proxy + TLS via certbot).
@@ -384,6 +398,21 @@ Run the app locally and follow [section 6](#6-local-setup) to see the UI live.
 - Audit log with before/after values.
 - Multi-warehouse support.
 - Rate limiting and refresh-token rotation for extra API hardiness.
+
+## 20. Changelog
+
+Deployment hardening and fixes applied while moving from local development to live deployments (Vercel + Render):
+
+| Date | Change | Why |
+| --- | --- | --- |
+| Aug 2026 | `backend/tsconfig.json` → `module`/`moduleResolution: node16`, removed `types: ["node"]`; pinned `typescript` to exact `5.9.3` | Render's newer TypeScript (6.x/7.x) removed the old `node`/`node10` resolution (`TS5108`) and failed to resolve the explicit `node` types (`TS2688`) |
+| Aug 2026 | `API_BASE_URL` always appends `/api` to `VITE_API_URL` | Deployed frontend called `…/auth/login` instead of `…/api/auth/login` → "Route not found" |
+| Aug 2026 | Profile/notification dropdowns — `z-50` on the topbar | Dropdown was hidden behind page content because the topbar's `backdrop-blur` created an isolated stacking context |
+| Aug 2026 | Mobile sidebar closes on navigation | Sidebar stayed open after tapping a nav item on small screens |
+| Aug 2026 | Axios request interceptor drops empty/`null` query params; customer query schema accepts empty `customerType`/`status` strings | `?customerType=&status=` (empty filters) failed backend enum validation on Customers, Challans, Products and Inventory lists |
+| Aug 2026 | Challan form loads customers/products with `limit: 100` (was 200) | Backend caps list `limit` at 100 → validation error when opening the new-challan form |
+| Aug 2026 | API error toasts show detailed field errors; empty `errors: []` falls back to the server message | Generic "Validation failed" gave no clue; empty errors array produced a blank toast (e.g. invalid login) |
+| Aug 2026 | Dashboard redesigned with a soft, professional pastel theme | Replaced the generic blue/violet look — light tinted stat cards with accent bars, calm hero banner, muted chart colors |
 
 ---
 
