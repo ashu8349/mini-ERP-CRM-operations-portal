@@ -20,6 +20,12 @@ api.interceptors.request.use((config) => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+  if (config.params) {
+    for (const key of Object.keys(config.params)) {
+      const value = config.params[key];
+      if (value === "" || value == null) delete config.params[key];
+    }
+  }
   return config;
 });
 

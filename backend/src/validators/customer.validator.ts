@@ -35,8 +35,8 @@ export const customerQuerySchema = z.object({
   page: z.coerce.number().int().positive().default(1),
   limit: z.coerce.number().int().positive().max(100).default(10),
   search: z.string().trim().max(160).optional(),
-  customerType: z.nativeEnum(CustomerType).optional(),
-  status: z.nativeEnum(CustomerStatus).optional(),
+  customerType: z.nativeEnum(CustomerType).optional().or(z.literal("").transform(() => undefined)),
+  status: z.nativeEnum(CustomerStatus).optional().or(z.literal("").transform(() => undefined)),
   sortBy: z.enum(["createdAt", "customerName", "followUpDate"]).default("createdAt"),
   sortOrder: z.enum(["asc", "desc"]).default("desc"),
 });
