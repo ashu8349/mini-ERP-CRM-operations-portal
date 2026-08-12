@@ -39,7 +39,7 @@ export function AppLayout() {
   return (
     <div className="flex h-screen overflow-hidden bg-slate-50">
       <div className="hidden lg:block">
-        <Sidebar />
+        <Sidebar onNavigate={() => setSidebarOpen(false)} />
       </div>
       {sidebarOpen && (
         <div className="fixed inset-0 z-40 lg:hidden">
@@ -48,7 +48,7 @@ export function AppLayout() {
             onClick={() => setSidebarOpen(false)}
           />
           <div className="absolute inset-y-0 left-0">
-            <Sidebar />
+            <Sidebar onNavigate={() => setSidebarOpen(false)} />
           </div>
         </div>
       )}

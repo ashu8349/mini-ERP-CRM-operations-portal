@@ -49,7 +49,7 @@ const NAV_GROUPS = [
   },
 ];
 
-export function Sidebar() {
+export function Sidebar({ onNavigate }) {
   const { user, logout } = useAuth();
   if (!user) return null;
 
@@ -82,6 +82,7 @@ export function Sidebar() {
                     key={item.to}
                     to={item.to}
                     end={item.end}
+                    onClick={onNavigate}
                     className={({ isActive }) =>
                       cn(
                         "group relative flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition-all duration-200",
@@ -122,7 +123,10 @@ export function Sidebar() {
             </p>
           </div>
           <button
-            onClick={logout}
+            onClick={() => {
+              onNavigate?.();
+              logout();
+            }}
             title="Log out"
             className="rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-rose-50 hover:text-rose-600"
           >
