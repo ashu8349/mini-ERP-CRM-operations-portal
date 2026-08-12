@@ -77,8 +77,8 @@ export function ChallanFormPage() {
 
   useEffect(() => {
     Promise.all([
-      customerService.list({ limit: 200 }),
-      productService.list({ limit: 200 }),
+      customerService.list({ limit: 100 }),
+      productService.list({ limit: 100 }),
     ])
       .then(([custs, prods]) => {
         setCustomers(custs.items);
