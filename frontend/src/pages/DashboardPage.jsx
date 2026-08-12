@@ -77,21 +77,21 @@ export function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <div className="relative overflow-hidden rounded-2xl border border-blue-100 bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 p-6 shadow-lg shadow-blue-900/20 sm:p-8">
+      <div className="relative overflow-hidden rounded-2xl border border-sky-100 bg-gradient-to-br from-sky-50 via-white to-violet-50 p-6 shadow-sm shadow-slate-900/5 sm:p-8">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -right-16 -top-20 size-64 animate-float-slow rounded-full bg-white/10 blur-2xl" />
-          <div className="absolute -bottom-24 left-1/3 size-56 animate-float rounded-full bg-white/10 blur-2xl" style={{ animationDelay: "-4s" }} />
+          <div className="absolute -right-16 -top-20 size-64 animate-float-slow rounded-full bg-sky-200/40 blur-2xl" />
+          <div className="absolute -bottom-24 left-1/3 size-56 animate-float rounded-full bg-violet-200/40 blur-2xl" style={{ animationDelay: "-4s" }} />
         </div>
         <div className="relative z-10 flex flex-wrap items-center justify-between gap-4">
           <div>
-            <p className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-widest text-blue-100">
+            <p className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-widest text-sky-600">
               <Sparkles className="size-3.5" />
               Operations Dashboard
             </p>
-            <h1 className="mt-1.5 font-display text-2xl font-bold text-white">
+            <h1 className="mt-1.5 font-display text-2xl font-bold text-slate-800">
               Welcome back, {user?.name.split(" ")[0]} 👋
             </h1>
-            <p className="mt-1 text-sm text-blue-100">
+            <p className="mt-1 text-sm text-slate-500">
               {new Date().toLocaleDateString("en-IN", {
                 weekday: "long",
                 day: "numeric",
@@ -106,7 +106,7 @@ export function DashboardPage() {
               <Link
                 key={action.label}
                 to={action.to}
-                className="flex items-center gap-2 rounded-xl bg-white/15 px-4 py-2.5 text-sm font-medium text-white ring-1 ring-inset ring-white/25 backdrop-blur transition-all hover:-translate-y-0.5 hover:bg-white/25"
+                className="flex items-center gap-2 rounded-xl border border-slate-200/70 bg-white/80 px-4 py-2.5 text-sm font-medium text-slate-700 shadow-sm backdrop-blur transition-all hover:-translate-y-0.5 hover:border-sky-200 hover:bg-white hover:text-sky-700 hover:shadow-md"
               >
                 {action.icon}
                 {action.label}
@@ -133,9 +133,9 @@ export function DashboardPage() {
           <CardBody>
             <DonutChart
               data={[
-                { name: "Draft", value: cards.draftChallans, color: "#f59e0b" },
-                { name: "Confirmed", value: cards.confirmedChallans, color: "#10b981" },
-                { name: "Cancelled", value: cards.cancelledChallans, color: "#f43f5e" },
+                { name: "Draft", value: cards.draftChallans, color: "#fbbf24" },
+                { name: "Confirmed", value: cards.confirmedChallans, color: "#34d399" },
+                { name: "Cancelled", value: cards.cancelledChallans, color: "#fb7185" },
               ]}
             />
           </CardBody>
@@ -145,12 +145,12 @@ export function DashboardPage() {
           <CardBody>
             <DonutChart
               data={[
-                { name: "Lead", value: cards.leadCustomers, color: "#f59e0b" },
-                { name: "Active", value: cards.activeCustomers, color: "#10b981" },
+                { name: "Lead", value: cards.leadCustomers, color: "#fbbf24" },
+                { name: "Active", value: cards.activeCustomers, color: "#34d399" },
                 {
                   name: "Inactive",
                   value: Math.max(0, cards.totalCustomers - cards.leadCustomers - cards.activeCustomers),
-                  color: "#94a3b8",
+                  color: "#cbd5e1",
                 },
               ]}
             />
