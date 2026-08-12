@@ -66,7 +66,7 @@ export function Topbar({ onToggleSidebar }) {
   };
 
   return (
-    <header className="flex h-16 shrink-0 items-center justify-between gap-3 border-b border-slate-200/80 bg-white/80 px-4 backdrop-blur sm:px-6">
+    <header className="relative z-50 flex h-16 shrink-0 items-center justify-between gap-3 border-b border-slate-200/80 bg-white/80 px-4 backdrop-blur sm:px-6">
       <div className="flex items-center gap-3">
         <button
           onClick={onToggleSidebar}
