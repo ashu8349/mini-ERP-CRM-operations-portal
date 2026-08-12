@@ -37,7 +37,9 @@ api.interceptors.response.use(
       onUnauthorized?.();
     }
     const data = error.response?.data;
-    const message = data?.message ?? "Something went wrong. Please try again.";
+    const fieldErrors = Array.isArray(data?.errors) ? data.errors.map((e) => e.message).join("; ") : null;
+    const message =
+      fieldErrors ?? data?.message ?? "Something went wrong. Please try again.";
     throw new ApiClientError(message, error.response?.status ?? 500, data?.errors);
   }
 );
